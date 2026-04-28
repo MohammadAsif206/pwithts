@@ -28,6 +28,16 @@ The goal of this project is to practice and demonstrate modern UI automation tec
 ---
 
 ## 📁 Project Structure
+project-root/
+│
+├── tests/ # Test files
+│ ├── example.spec.ts
+│ └── ...
+│
+├── playwright.config.ts # Playwright configuration
+├── package.json
+├── tsconfig.json
+└── README.md
 
 ---
 
