@@ -9,3 +9,5 @@ playwright/.auth/
 .env
 .vscode/
 playwright/.auth
+allure-report/
+allure-results/
