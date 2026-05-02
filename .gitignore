@@ -8,3 +8,4 @@ playwright/.cache/
 playwright/.auth/
 .env
 .vscode/
+playwright/.auth
