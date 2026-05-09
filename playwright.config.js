@@ -1,0 +1,41 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const test_1 = require("@playwright/test");
+exports.default = (0, test_1.defineConfig)({
+    testDir: './tests',
+    /* Run tests in parallel in CI */
+    fullyParallel: true,
+    /* Fail CI faster if something is broken */
+    forbidOnly: !!process.env.CI,
+    /* Retry failed tests in CI */
+    retries: process.env.CI ? 2 : 0,
+    /* Limit workers in CI for stability */
+    workers: process.env.CI ? 2 : undefined,
+    /* Reporter */
+    reporter: process.env.CI
+        ? [
+            ['list'],
+            ['html', { open: 'never' }],
+            ['allure-playwright'],
+        ]
+        : [
+            ['list'],
+            ['html'],
+            ['allure-playwright'],
+        ],
+    use: {
+        baseURL: 'https://valentinos-magic-beans.click',
+        /* CI-friendly settings */
+        trace: 'on-first-retry',
+        screenshot: 'only-on-failure',
+        video: process.env.CI ? 'retain-on-failure' : 'off',
+        /* Always use clean browser context */
+        storageState: undefined,
+    },
+    projects: [
+        {
+            name: 'chromium',
+            use: Object.assign({}, test_1.devices['Desktop Chrome']),
+        },
+    ],
+});

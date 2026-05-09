@@ -11,3 +11,4 @@ playwright/.auth/
 playwright/.auth
 allure-report/
 allure-results/
+pic/
