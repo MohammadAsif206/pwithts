@@ -44,6 +44,15 @@ project-root/
 ## ⚙️ Setup Instructions
 npm install
 
+## Setup a project
+Craete an empty folder, open a terminal in it
+Run the command 'npm init -y' to initialize a node.js project
+Run the command 'npm install @playwright/test' to install playwright
+Run the command 'mpx playwright install' to install required browser binaries
+
+## To generate code
+Run the command 'npx playwright codegen'
+
 ### 1. Clone the Repository
 
 ```bash
