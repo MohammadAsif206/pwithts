@@ -92,30 +92,22 @@ test("Handle Windows/ tabs ", async () => {
      console.log(`New page/Tab Title ------> ${await newWindow.title()}`);
 
     await broserContext.close();
-     await b.close();
+    await b.close();
 
 });
 test("Handle Windows Navigation ", async () => {
-    const b: Browser = await chromium.launch({headless: false});
+    const b: Browser = await webkit.launch({headless: true});
      const broserContext = await b.newContext();
      const page1: Page = await broserContext.newPage();
      page1.goto("https://www.fidelity.com/");
-     await page1.waitForLoadState('domcontentloaded');
-     page1.on('load',() => {
-        console.log('Page has loaded. ')
-     });
 
-    //  await page.goto('https://www.fidelity.com/');
-
-    //  await page.getByRole('link', { name: 'Log in' }).click();
+    console.log('Page has loaded.');
 
      expect(page1.url()==='https://www.fidelity.com/')
      await page1.getByRole('link', { name: 'Log in' }).click();
      await page1.goto('https://digital.fidelity.com/prgw/digital/signin/retail');
      expect (await page1.getByRole('heading',{name:'Log in'}).textContent()==='Log in')
-    //  page1.on('domcontentloaded', () =>{
-    //     console.log("DOM contents have loaded")
-    //  });
+    
      await page1.goBack()
      expect(page1.url()==='https://www.fidelity.com/');
      await page1.goForward();
