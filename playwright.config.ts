@@ -19,11 +19,12 @@ export default defineConfig({
   reporter: process.env.CI
   ? [
       ['list'],
-      ['html', { open: 'never' }]
+      ['html', { open: 'never' }],
+      ['allure-playwright']
     ]
   : [
       ['list'],
-      ['html'],
+      ['html', {open: ''}],
       ['allure-playwright']
     ],
   use: {

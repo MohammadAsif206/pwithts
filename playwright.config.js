@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const test_1 = require("@playwright/test");
 exports.default = (0, test_1.defineConfig)({
-    testDir: './tests',
+    testDir: './src',
     /* Run tests in parallel in CI */
     fullyParallel: true,
     /* Fail CI faster if something is broken */
