@@ -1,0 +1,4 @@
+Test new page opened
+Test passed: Login functionality works as epxected. The error message is async textContent(options) {
+    return await this._frame.textContent(this._selector, { strict: true, ...options });
+  }
