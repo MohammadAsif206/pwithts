@@ -19,15 +19,13 @@ export default defineConfig({
   reporter: process.env.CI
   ? [
       ['list'],
-      ['html', { open: 'never' }],
-      ['allure-playwright'],
+      ['html', { open: 'never' }]
     ]
   : [
       ['list'],
       ['html'],
-      ['allure-playwright'],
+      ['allure-playwright']
     ],
-
   use: {
     baseURL: 'https://valentinos-magic-beans.click',
 
