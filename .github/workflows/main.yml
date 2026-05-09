@@ -64,3 +64,11 @@ jobs:
           echo "🚀 Allure Report: $REPORT_URL"
           echo "## 📊 Allure Report" >> $GITHUB_STEP_SUMMARY
           echo "🔗 [Open Allure Report]($REPORT_URL)" >> $GITHUB_STEP_SUMMARY
+      - name: Add report link to workflow summary
+        run: |
+          echo "## Playwright Report" >> $GITHUB_STEP_SUMMARY
+          echo "[Open Playwright Report](https://mohammadasif206.github.io/pwithts/)" >> $GITHUB_STEP_SUMMARY
+      - name: Add Allure link
+        run: |
+          echo "## Allure Report" >> $GITHUB_STEP_SUMMARY
+          echo "[Open Allure Report](https://mohammadasif206.github.io/pwithts/allure-report/)" >> $GITHUB_STEP_SUMMARY
