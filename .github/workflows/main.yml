@@ -12,9 +12,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repo
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 20
 
@@ -24,71 +26,20 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
 
-      # =========================
-      # 🧪 Run tests (HTML + Allure enabled via config)
-      # =========================
+      # ✅ Run tests + generate HTML report
       - name: Run Playwright tests
-        run: npx playwright test
+        run: npx playwright test --reporter=html
 
-      # =========================
-      # 📊 Generate HTML report (Playwright)
-      # =========================
-      - name: Generate Playwright HTML report
-        if: always()
-        run: npx playwright show-report --output=playwright-report || true
-
-      # =========================
-      # 📦 Upload HTML report
-      # =========================
-      - name: Upload Playwright HTML report
+      # 📦 Upload report as artifact (optional but useful)
+      - name: Upload HTML report artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: playwright-html-report
           path: playwright-report/
 
-      # =========================
-      # 📊 Generate Allure report
-      # =========================
-      - name: Install Allure CLI
-        if: always()
-        run: npm install -g allure-commandline
-
-      - name: Generate Allure report
-        if: always()
-        run: npx allure generate allure-results --clean -o allure-report
-
-      # =========================
-      # 📦 Upload Allure results + report
-      # =========================
-      - name: Upload Allure results
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: allure-results
-          path: allure-results/
-
-      - name: Upload Allure report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: allure-report
-          path: allure-report/
-
-      # =========================
-      # 🚀 Deploy Allure to GitHub Pages
-      # =========================
-      - name: Deploy Allure Report to GitHub Pages
-        if: always()
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: allure-report
-
-      # =========================
-      # 🚀 Deploy HTML Report to GitHub Pages (separate folder)
-      # =========================
-      - name: Deploy Playwright HTML Report
+      # 🚀 Deploy to GitHub Pages
+      - name: Deploy HTML report to GitHub Pages
         if: always()
         uses: peaceiris/actions-gh-pages@v3
         with:
