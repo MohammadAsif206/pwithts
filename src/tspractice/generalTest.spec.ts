@@ -16,9 +16,9 @@ test('Verify if Get started link is visible', async ({page}) =>{
 
 test('Broswer instance Safari browser: ', async () =>{
     // Open the browser instance
-    const b: Browser = await webkit.launch({headless: false});
+    const b: Browser = await webkit.launch({headless: true});
     const page: Page = await b.newPage();
-    const c: Browser = await chromium.launch({headless: false});
+    const c: Browser = await chromium.launch({headless: true});
     const page1: Page = await c.newPage();
     await page.goto('https://www.google.com');
     console.log(await page.title());
@@ -31,7 +31,7 @@ test('Broswer instance Safari browser: ', async () =>{
 });
 
 test('Browser Context,on1 window', async () =>{
-     const b: Browser = await webkit.launch({headless: false});
+     const b: Browser = await webkit.launch({headless: true});
      const broserContext = await b.newContext();
      const page: Page = await broserContext.newPage();
      await page.goto('https://www.google.com');
@@ -41,15 +41,15 @@ test('Browser Context,on1 window', async () =>{
 });
 
 test('Browser Context, multipe windows', async () =>{
-     const b: Browser = await webkit.launch({headless: false});
+     const b: Browser = await webkit.launch({headless: true});
      const broserContext1 = await b.newContext();
      const page1: Page = await broserContext1.newPage();
 
-     const c: Browser = await webkit.launch({headless: false});
+     const c: Browser = await webkit.launch({headless: true});
      const broserContext2 = await c.newContext();
      const page2: Page = await broserContext2.newPage();
 
-     const d: Browser = await webkit.launch({headless: false});
+     const d: Browser = await webkit.launch({headless: true});
      const broserContext3 = await d.newContext();
      const page3: Page = await broserContext3.newPage();
 
@@ -80,7 +80,7 @@ test('Browser Context, multipe windows', async () =>{
 })
 
 test("Handle Windows/ tabs ", async () => {
-    const b: Browser = await chromium.launch({headless: false});
+    const b: Browser = await chromium.launch({headless: true});
      const broserContext = await b.newContext();
      const page1: Page = await broserContext.newPage();
      page1.goto("https://the-internet.herokuapp.com/windows");
@@ -96,7 +96,7 @@ test("Handle Windows/ tabs ", async () => {
 
 });
 test("Handle Windows Navigation ", async () => {
-    const b: Browser = await chromium.launch({headless: false});
+    const b: Browser = await chromium.launch({headless: true});
      const broserContext = await b.newContext();
      const page1: Page = await broserContext.newPage();
      page1.goto("https://www.fidelity.com/");

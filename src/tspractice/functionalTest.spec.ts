@@ -1,9 +1,10 @@
-import {chromium} from 'playwright';
+import {test, expect, Browser,Page} from 'playwright/test';
+import {chromium} from 'playwright'
 console.log('Test started');
 
-(async () => {
+test("test 1", async () => {
     //Launch the browser
-    const browser = await chromium.launch({headless: false});
+    const browser = await chromium.launch({headless: true});
     const context = await browser.newContext();
     const page = await context.newPage();
     console.log('Test new page opened');
@@ -23,30 +24,29 @@ console.log('Test started');
     }
     //take screenshot
     await page.screenshot({path:'pic/screenshot.png'});
-    //logout
-    //await page.waitForTimeout(2000);
-    page.locator('//*[@id="loop-container"]/div/article/div[2]/div/div/div/a').click;
+  
+    await page.goto('https://practicetestautomation.com/practice-test-login/')
     
     await page.fill('#username','incorrectUser');
     await page.fill('#password','Password123');
     // click the submit button
     await page.click('#submit');
     // verify the URL after login
-    const p = page.getByText('Your username is invalid!');
-    //const currentURL = page.url();
+    const p = page.locator('#error').textContent();
+   
     await page.screenshot({path:'pic/screenshot.png'});
-    if(await p.textContent() === 'Your username is invalid!'){
-        console.log(`Test passed: Login functionality works as epxected. The error message is ${p.textContent}`)
+    if(await p === 'Your username is invalid!'){
+        console.log(`Test passed: Login functionality works as epxected. The error message is ${p}`)
     }else{
         console.log('Test failed: URL mismatch after login')
     }
     //close the browser
     await browser.close();
-})();
+});
 
-(async () => {
+test("test 2", async () => {
     //Launch the browser
-    const browser = await chromium.launch({headless: false});
+    const browser = await chromium.launch({headless: true});
     const context = await browser.newContext();
     const page = await context.newPage();
     console.log('Test new page opened');
@@ -67,4 +67,4 @@ console.log('Test started');
     }
     //close the browser
     await browser.close();
-})();
+});
