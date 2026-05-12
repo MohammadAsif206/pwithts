@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Playwright Locator Practice Lab</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #111827;
+      --accent: #38bdf8;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --success: #22c55e;
+      --border: #1f2937;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, Arial;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    header {
+      padding: 20px;
+      text-align: center;
+      background: #0b1220;
+      border-bottom: 1px solid var(--border);
+    }
+
+    h1 { margin: 0; font-size: 22px; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 16px;
+      padding: 20px;
+    }
+
+    section {
+      background: var(--card);
+      padding: 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+
+    h2 {
+      font-size: 16px;
+      margin-top: 0;
+      color: var(--accent);
+    }
+
+    button, input, select {
+      padding: 8px;
+      margin: 6px 0;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: #0b1220;
+      color: var(--text);
+      width: 100%;
+    }
+
+    button {
+      cursor: pointer;
+      background: var(--accent);
+      color: black;
+      font-weight: bold;
+    }
+
+    .box { padding: 10px; border: 1px solid var(--border); margin-top: 8px; border-radius: 8px; }
+    .hidden { display: none; }
+
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border: 1px solid var(--border); padding: 6px; }
+
+    iframe { width: 100%; height: 120px; border: 1px solid var(--border); }
+
+    #loginMessage {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    .success { color: var(--success); }
+
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Playwright Locator Practice Lab (Advanced UI)</h1>
+</header>
+
+<div class="grid">
+
+  <!-- Role/Text -->
+  <section>
+    <h2>getByRole / getByText</h2>
+    <button>Submit Button</button>
+    <button>Cancel Button</button>
+    <p>This paragraph is for text locator testing</p>
+  </section>
+
+  <!-- Login Form -->
+  <section>
+    <h2>Login Form (Test Submission)</h2>
+    <label>Username</label>
+    <input id="username" type="text" placeholder="Enter username" />
+
+    <label>Password</label>
+    <input id="password" type="password" placeholder="Enter password" />
+
+    <button onclick="login()">Login</button>
+
+    <div id="loginMessage"></div>
+  </section>
+
+  <!-- Placeholder -->
+  <section>
+    <h2>getByPlaceholder</h2>
+    <input placeholder="Enter email" />
+    <input placeholder="Search here" />
+  </section>
+
+  <!-- Alt Text -->
+  <section>
+    <h2>getByAltText</h2>
+    <img src="https://via.placeholder.com/120" alt="profile image" />
+  </section>
+
+  <!-- Title -->
+  <section>
+    <h2>getByTitle</h2>
+    <span title="info icon">Hover me ℹ️</span>
+  </section>
+
+  <!-- TestId -->
+  <section>
+    <h2>getByTestId</h2>
+    <div data-testid="login-box">Login Box</div>
+    <button data-testid="submit-btn">Submit</button>
+  </section>
+
+  <!-- CSS / XPath -->
+  <section>
+    <h2>CSS / XPath</h2>
+    <div class="css-box">CSS Box</div>
+    <div id="xpath-target">XPath Target</div>
+  </section>
+
+  <!-- Nested -->
+  <section>
+    <h2>Nested Locators</h2>
+    <div class="parent">
+      <div class="child">
+        <button>Nested Button</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Table -->
+  <section>
+    <h2>Tables</h2>
+    <table>
+      <tr><th>Name</th><th>Age</th></tr>
+      <tr><td>Alice</td><td>25</td></tr>
+      <tr><td>Bob</td><td>30</td></tr>
+    </table>
+  </section>
+
+  <!-- Checkbox / Radio -->
+  <section>
+    <h2>Checkbox / Radio</h2>
+    <label><input type="checkbox" /> Accept</label>
+    <label><input type="radio" name="g" /> Male</label>
+    <label><input type="radio" name="g" /> Female</label>
+  </section>
+
+  <!-- Dropdown -->
+  <section>
+    <h2>Dropdown</h2>
+    <select>
+      <option>Option 1</option>
+      <option>Option 2</option>
+      <option>Option 3</option>
+    </select>
+  </section>
+
+  <!-- Dynamic -->
+  <section>
+    <h2>Dynamic Visibility</h2>
+    <button onclick="toggleBox()">Toggle</button>
+    <div id="dynamicBox" class="box hidden">Now visible</div>
+  </section>
+
+  <!-- Iframe -->
+  <section>
+    <h2>Iframes</h2>
+    <iframe srcdoc="<p>Iframe content</p>"></iframe>
+  </section>
+
+  <!-- Shadow DOM -->
+  <section>
+    <h2>Shadow DOM</h2>
+    <div id="shadowHost"></div>
+  </section>
+
+</div>
+
+<script>
+  function login() {
+    const u = document.getElementById('username').value;
+    const p = document.getElementById('password').value;
+    const msg = document.getElementById('loginMessage');
+
+    if (u && p) {
+      msg.textContent = "Login Successful!";
+      msg.className = "success";
+    } else {
+      msg.textContent = "Enter credentials";
+      msg.className = "";
+    }
+  }
+
+  function toggleBox() {
+    document.getElementById('dynamicBox').classList.toggle('hidden');
+  }
+
+  // Shadow DOM
+  const host = document.getElementById('shadowHost');
+  const shadow = host.attachShadow({ mode: 'open' });
+  shadow.innerHTML = `<button id='shadowBtn'>Shadow Button</button>`;
+</script>
+
+</body>
+</html>
