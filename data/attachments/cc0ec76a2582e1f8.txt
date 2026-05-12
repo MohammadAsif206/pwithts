@@ -1,3 +1,0 @@
-Test new page opened
-Test passed: Login functionality works as epxected.
-Test passed: Login functionality works as epxected. The error message is [object Promise]
