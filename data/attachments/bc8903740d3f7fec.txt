@@ -1,5 +1,0 @@
-Size of the lsit:  4
-Dragged Item:  Get groceries delete
-Dragged Item:  Feed the dog delete
-Dragged Item:  Clean my room delete
-Dragged Item:  Hangout with friends delete
