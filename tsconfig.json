@@ -5,9 +5,8 @@
     "types": ["node"],
     "outDir": "dist",
     "rootDir": "src",
-    "target": "ES6"
+    "target": "ES2022"
   },
   "include": ["src","pdp"],
-  
 
 }

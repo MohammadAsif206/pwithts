@@ -32,32 +32,47 @@ var __importStar = (this && this.__importStar) || (function () {
         return result;
     };
 })();
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const path_1 = __importDefault(require("path"));
+const XLSX = __importStar(require("xlsx"));
 const fs_1 = __importDefault(require("fs"));
-const test_1 = require("@playwright/test");
-const loginPage = __importStar(require("../actions/Login"));
-const authSessionFile = path_1.default.resolve(__dirname, '../../playwright/.auth/user.json');
-// Read and parse the JSON file
-const loginDataFile = path_1.default.resolve(__dirname, '../../playwright/.auth/loginData.json');
-const loginData = JSON.parse(fs_1.default.readFileSync(loginDataFile, 'utf-8'));
-(0, test_1.test)('authenticate', (_a) => __awaiter(void 0, [_a], void 0, function* ({ page }) {
-    yield page.goto('/login');
-    yield loginPage.login(page, loginData.email, loginData.pass);
-    yield loginPage.verifySuccessfulLogin(page);
-    yield page.context().storageState({
-        path: authSessionFile
-    });
-}));
+const path_1 = __importDefault(require("path"));
+// Test data
+const data = [
+    {
+        testName: 'Valid Login',
+        username: 'standard_user',
+        password: 'secret_sauce',
+        expectedUrl: 'https://www.saucedemo.com/inventory.html',
+        expectedError: ''
+    },
+    {
+        testName: 'Invalid Password',
+        username: 'standard_user',
+        password: 'wrongpass',
+        expectedUrl: '',
+        expectedError: 'Epic sadface: Username and password do not match any user in this service'
+    },
+    {
+        testName: 'Locked User',
+        username: 'locked_out_user',
+        password: 'secret_sauce',
+        expectedUrl: '',
+        expectedError: 'Epic sadface: Sorry, this user has been locked out.'
+    }
+];
+// Convert JSON to worksheet
+const worksheet = XLSX.utils.json_to_sheet(data);
+// Create workbook
+const workbook = XLSX.utils.book_new();
+XLSX.utils.book_append_sheet(workbook, worksheet, 'LoginData');
+// Create folder if not exists
+const folderPath = path_1.default.join(process.cwd(), 'testdata');
+if (!fs_1.default.existsSync(folderPath)) {
+    fs_1.default.mkdirSync(folderPath);
+}
+// Write file
+XLSX.writeFile(workbook, path_1.default.join(folderPath, 'loginData.xlsx'));
+console.log('Excel file created successfully');
