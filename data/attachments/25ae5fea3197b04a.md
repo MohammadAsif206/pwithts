@@ -1,0 +1,101 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: tests/ui/auth-actions.spec.ts >> test
+- Location: tests/ui/auth-actions.spec.ts:2:5
+
+# Error details
+
+```
+Error: expect(locator).toBeVisible() failed
+
+Locator: getByText('Welcome!')
+Expected: visible
+Timeout: 5000ms
+Error: element(s) not found
+
+Call log:
+  - Expect "toBeVisible" with timeout 5000ms
+  - waiting for getByText('Welcome!')
+
+```
+
+# Page snapshot
+
+```yaml
+- generic [ref=e2]:
+  - region "Notifications (F8)":
+    - list
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - generic [ref=e5]:
+        - link "V Valentino's Magic Beans" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e8]: V
+          - heading "Valentino's Magic Beans" [level=1] [ref=e10]
+        - navigation [ref=e11]:
+          - link "Home" [ref=e12] [cursor=pointer]:
+            - /url: /
+          - link "Shop" [ref=e13] [cursor=pointer]:
+            - /url: /products
+          - link "Contact" [ref=e14] [cursor=pointer]:
+            - /url: /contact
+        - generic [ref=e15]:
+          - generic [ref=e16]:
+            - link "Login" [ref=e17] [cursor=pointer]:
+              - /url: /login
+              - button "Login" [active] [ref=e18]
+            - link "Sign Up" [ref=e19] [cursor=pointer]:
+              - /url: /signup
+              - button "Sign Up" [ref=e20]
+          - link [ref=e21] [cursor=pointer]:
+            - /url: /cart
+            - button [ref=e22]:
+              - img
+    - main [ref=e23]:
+      - generic [ref=e25]:
+        - generic [ref=e26]:
+          - heading "Login" [level=3] [ref=e27]
+          - paragraph [ref=e28]: Enter your email below to login to your account
+        - generic [ref=e29]:
+          - generic [ref=e30]:
+            - generic [ref=e31]:
+              - generic [ref=e32]: Email
+              - textbox "Email" [ref=e33]:
+                - /placeholder: m@example.com
+            - generic [ref=e34]:
+              - generic [ref=e35]:
+                - generic [ref=e36]: Password
+                - link "Forgot your password?" [ref=e37] [cursor=pointer]:
+                  - /url: /login
+              - textbox "Password" [ref=e38]
+            - button "Login" [ref=e39] [cursor=pointer]
+          - generic [ref=e40]:
+            - text: Don't have an account?
+            - link "Sign up" [ref=e41] [cursor=pointer]:
+              - /url: /signup
+    - contentinfo [ref=e42]:
+      - generic [ref=e43]:
+        - heading "Disclaimer" [level=2] [ref=e44]
+        - paragraph [ref=e45]: This is not a real shop; it is a project for demonstration and testing purposes only. Please do not provide any real personal or payment information. No real products will be shipped, and no real transactions will be processed. The owner assumes no liability for any data entered or actions taken on this site.
+        - paragraph [ref=e47]: "Version: 9271b4fa | Built on: 2026-05-07"
+```
+
+# Test source
+
+```ts
+  1 | import {test,expect} from '@playwright/test';
+  2 | test('test', async ({page}) =>{
+  3 |     await page.goto('/')
+  4 |     await page.getByRole('button').first().click();
+  5 |     const welcomeMsg = page.getByText('Welcome!');
+> 6 |     await expect(welcomeMsg).toBeVisible();
+    |                              ^ Error: expect(locator).toBeVisible() failed
+  7 | 
+  8 | })
+```

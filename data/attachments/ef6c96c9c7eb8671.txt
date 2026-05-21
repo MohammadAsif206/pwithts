@@ -1,0 +1,7 @@
+All options before selecting:  [ 'Green', 'Blue', 'Black', 'Red' ]
+The value is:  Green
+The value is:  Blue
+The value is:  Black
+The value is:  Red
+All slected options: Green,Blue,Black,Red
+All slected options after removing one element: Green,Black,Red

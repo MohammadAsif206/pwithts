@@ -1,0 +1,4 @@
+Count of Rows before filtering: 10
+Count of Row after filtering  1
+[ '', '6', 'Ann', 'Smith', '@ann', 'ann@gmail.com', '21' ]
+Row 1: ann@gmail.com

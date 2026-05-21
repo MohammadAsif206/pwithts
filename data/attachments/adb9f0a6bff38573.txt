@@ -1,0 +1,4 @@
+The file is: I am fed up with you
+Th file text is:  
+Name of the chosen file: C:\fakepath\test.txt
+Upload confermation message: You have successfully uploaded "test.txt"
