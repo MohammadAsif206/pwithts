@@ -91,26 +91,20 @@ test.describe("Login validation", () => {
             switch (datum.testName) {
                 case 'Valid Login':
                     await logIn(page, datum);
-                    await page.close();
                     break;
                 case 'Invalid Password':
                     await logIn(page, datum);
-                    await page.close();
                     break;
                 case 'Locked User':
                     await logIn(page, datum);
-                    await page.close();
                     break;
                 case 'Empty Username':
                     await logIn(page, datum);
-                    await page.close();
                     break;
                 case 'Empty Password':
                     await logIn(page, datum);
-                    await page.close();
                     break;
             }
-
 
         });
     }
@@ -123,14 +117,14 @@ export function readExcel(filePath: string, sheetName: string) {
     const sheet = workbook.Sheets[sheetName];
     return XLSX.utils.sheet_to_json(sheet);
 
-}
+};
 type LoginData = {
     testName: string;
     username: string;
     password: string;
     expectedUrl: string;
     expectedError: string;
-}
+};
 
 export async function logIn(page: Page, datum: LoginData) {
 
@@ -152,6 +146,5 @@ export async function logIn(page: Page, datum: LoginData) {
         const errMsg = await page.locator("[data-test='error']").textContent();
         expect(errMsg).toEqual(datum.expectedError);
         console.log(`FAiled login ${errMsg}`)
-
     }
 };

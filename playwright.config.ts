@@ -2,11 +2,11 @@ import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   testDir: '.',
-testMatch: [
-  '**/tests/**/*.spec.ts',
-  '**/src/**/*.spec.ts',
-  '**/pdp/**/*.spec.ts',
-],
+  testMatch: [
+    '**/tests/**/*.spec.ts',
+    '**/src/**/*.spec.ts',
+    '**/pdp/**/*.spec.ts',
+  ],
 
   /* Run tests in parallel in CI */
   fullyParallel: true,
@@ -22,14 +22,14 @@ testMatch: [
 
   /* Reporter */
   reporter: process.env.CI
-  ? [
+    ? [
       ['list'],
       ['html', { open: 'never' }],
       ['allure-playwright']
     ]
-  : [
+    : [
       ['list'],
-      ['html', {open: ''}],
+      ['html', { open: '' }],
       ['allure-playwright']
     ],
   use: {
@@ -43,6 +43,7 @@ testMatch: [
     /* Always use clean browser context */
     storageState: undefined,
   },
+  
 
   projects: [
     {

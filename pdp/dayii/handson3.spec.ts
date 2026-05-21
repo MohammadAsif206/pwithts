@@ -149,7 +149,7 @@ test.describe("Handle table", () => {
     });
 
     // No part of hands 4- more practice material
-    test.only("Handle nested ifram - child frame Project Detaisl", async ({ page }) => {
+    test("Handle nested ifram - child frame Project Detaisl", async ({ page }) => {
         await page.goto("https://vinothqaacademy.com/iframe/");
         expect(page).toHaveURL(/ifram/);
         await page.locator(".iframe-container").click();
